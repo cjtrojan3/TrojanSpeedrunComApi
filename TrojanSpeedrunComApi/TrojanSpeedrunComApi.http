@@ -1,0 +1,6 @@
+@TrojanSpeedrunComApi_HostAddress = http://localhost:5065
+
+GET {{TrojanSpeedrunComApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
