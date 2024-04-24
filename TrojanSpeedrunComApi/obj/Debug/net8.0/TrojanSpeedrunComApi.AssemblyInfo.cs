@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TrojanSpeedrunComApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c117709fb0c343031cfdc7cceda1ac9fb294fbbf")]
 [assembly: System.Reflection.AssemblyProductAttribute("TrojanSpeedrunComApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TrojanSpeedrunComApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

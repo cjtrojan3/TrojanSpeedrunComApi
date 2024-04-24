@@ -3,4 +3,10 @@
 bin/
 /bin/*
 **/*.exe
-**/*.cache
+*.cache
+*.pdb
+*.project.nuget.cache
+*.CoreCompileInputs.cache
+*.exe
+*.suo
+./obj/*.*
