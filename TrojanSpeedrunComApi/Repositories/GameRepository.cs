@@ -17,24 +17,35 @@ namespace TrojanSpeedrunComApi.Repositories
             _configuration = configuration;
         }
 
-        public async Task<Game> GetGame(string id)
+        public async Task<Game> GetGame(string gameId)
         {
-            var baseUrl = _configuration.GetSection(AppSettings.SpeedrunComApiBaseUrl.ToString()).Value;//_environmentHelper.GetAppSetting(AppSettings.SpeedrunComApiBaseUrl);
-            var client = new RestClient(baseUrl);
-            try
-            {
-                var request = new RestRequest($"games/{id}", Method.Get);
+            var client = GetSpeedrunDotComClient();
+            var request = new RestRequest($"games/{gameId}", Method.Get);
+            var response = await client.ExecuteAsync(request);
+            var gameWrapper = response.Content.FromJson<GameWrapper>();
 
-                var response = await client.ExecuteAsync(request);
+            return gameWrapper.game;
+        }
 
-                var games = response.Content.FromJson<Game>();
+        public async Task<List<Game>> SearchGames(string name, int? releasedYear = null)
+        {
+            var client = GetSpeedrunDotComClient();
+            var request = new RestRequest($"games/", Method.Get);
 
-                return games;
-            }
-            catch (Exception ex) 
-            {
-                throw;
-            }
+            if (name != null)
+                request.AddParameter("name", name);
+            
+            if (releasedYear.HasValue)
+                request.AddParameter("releasedYear", releasedYear.Value);
+
+            var response = await client.ExecuteAsync(request);
+            return response.Content.FromJson<List<Game>>();
+        }
+
+        private RestClient GetSpeedrunDotComClient()
+        {
+            var baseUrl = _configuration.GetSection(AppSettings.SpeedrunComApiBaseUrl.ToString()).Value;
+            return new RestClient(baseUrl);
         }
     }
 }

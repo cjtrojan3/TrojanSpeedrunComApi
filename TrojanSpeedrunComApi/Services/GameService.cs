@@ -12,9 +12,14 @@ namespace TrojanSpeedrunComApi.Services
             _gameRepository = gameRepository;
         }
 
-        public async Task<Game> GetGame(string id)
+        public async Task<Game> GetGame(string gameId)
         {
-            return await _gameRepository.GetGame(id);
+            return await _gameRepository.GetGame(gameId);
+        }
+
+        public async Task<List<Game>> SearchGames(string name, int? releasedYear = null)
+        {
+            return await _gameRepository.SearchGames(name, releasedYear);
         }
     }
 }

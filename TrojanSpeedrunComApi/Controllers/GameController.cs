@@ -16,10 +16,17 @@ namespace TrojanSpeedrunComApi.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(200, Type = typeof(List<Game>))]
-        public async Task<IActionResult> GetGames(string id)
+        [ProducesResponseType(200, Type = typeof(Game))]
+        public async Task<IActionResult> GetGame(string id)
         {
             return Ok(await _gameService.GetGame(id));
+        }
+
+        [HttpPost]
+        [ProducesResponseType(200, Type = typeof(List<Game>))]
+        public async Task<IActionResult> SearchGames(SearchGames searchGames)
+        {
+            return Ok(await _gameService.SearchGames(searchGames.Name, searchGames.ReleasedDate));
         }
     }
 }
