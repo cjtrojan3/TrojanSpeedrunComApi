@@ -30,16 +30,19 @@ namespace TrojanSpeedrunComApi.Repositories
         public async Task<List<Game>> SearchGames(string name, int? releasedYear = null)
         {
             var client = GetSpeedrunDotComClient();
-            var request = new RestRequest($"games/", Method.Get);
+            var request = new RestRequest($"games", Method.Get);
 
             if (name != null)
                 request.AddParameter("name", name);
             
             if (releasedYear.HasValue)
-                request.AddParameter("releasedYear", releasedYear.Value);
+                request.AddParameter("released", releasedYear.Value);
 
             var response = await client.ExecuteAsync(request);
-            return response.Content.FromJson<List<Game>>();
+
+            var gameListWrapper = response.Content.FromJson<GameSearchWrapper>();
+
+            return gameListWrapper.data;
         }
 
         private RestClient GetSpeedrunDotComClient()
