@@ -8,12 +8,10 @@ namespace TrojanSpeedrunComApi.Repositories
 {
     public class GameRepository : IGameRepository
     {
-        //private EnvironmentHelper _environmentHelper { get; set; }
         protected IConfiguration _configuration { get; private set; }
 
-        public GameRepository(IConfiguration configuration)//EnvironmentHelper environmentHelper)
+        public GameRepository(IConfiguration configuration)
         {
-            //_environmentHelper = environmentHelper;
             _configuration = configuration;
         }
 
@@ -24,7 +22,7 @@ namespace TrojanSpeedrunComApi.Repositories
             var response = await client.ExecuteAsync(request);
             var gameWrapper = response.Content.FromJson<GameWrapper>();
 
-            return gameWrapper.game;
+            return gameWrapper.data;
         }
 
         public async Task<List<Game>> SearchGames(string name, int? releasedYear = null)

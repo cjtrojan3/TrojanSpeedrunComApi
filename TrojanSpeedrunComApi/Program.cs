@@ -9,7 +9,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 builder.Services.AddScoped<IGameRepository, GameRepository>();
+builder.Services.AddScoped<IDeveloperRepository, DeveloperRepository>();
+
 builder.Services.AddScoped<IGameService, GameService>();
+builder.Services.AddScoped<IDeveloperService, DeveloperService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

@@ -9,6 +9,7 @@
         public string[] platforms { get; set; }
         public string[] regions { get; set; }
         public Assets assets { get; set; }
+        public string[] developers { get; set; }
     }
     public class GameNames
     {
@@ -30,7 +31,7 @@
 
     public class GameWrapper
     {
-        public Game game { get; set; }
+        public Game data { get; set; }
     }
 
     public class GameSearchWrapper
