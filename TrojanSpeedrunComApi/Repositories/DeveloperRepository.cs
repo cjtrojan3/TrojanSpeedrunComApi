@@ -1,4 +1,5 @@
-﻿using RestSharp;
+﻿using Microsoft.Extensions.Caching.Memory;
+using RestSharp;
 using TrojanSpeedrunComApi.Framework.Extensions;
 using TrojanSpeedrunComApi.Interfaces;
 using TrojanSpeedrunComApi.Models;
@@ -9,20 +10,34 @@ namespace TrojanSpeedrunComApi.Repositories
     public class DeveloperRepository : IDeveloperRepository
     {
         protected IConfiguration _configuration { get; private set; }
+        private readonly IMemoryCache _memoryCache;
 
-        public DeveloperRepository(IConfiguration configuration)
+        public DeveloperRepository(IConfiguration configuration, IMemoryCache memoryCache)
         {
             _configuration = configuration;
+            _memoryCache = memoryCache;
         }
 
         public async Task<Developer> GetDeveloper(string developerId)
         {
+            if (developerId.IsNullOrEmpty())
+                return null;
+
+            if (_memoryCache.TryGetValue(developerId, out Developer cachedDeveloper))
+                return cachedDeveloper;
+
             var client = GetSpeedrunDotComClient();
             var request = new RestRequest($"developers/{developerId}", Method.Get);
             var response = await client.ExecuteAsync(request);
-            var developerWrapper = response.Content.FromJson<DeveloperWrapper>();
+            var srcDeveloper = response.Content.FromJson<DeveloperWrapper>().data;
+            var developer = Developer.MapFrom(srcDeveloper);
 
-            return Developer.MapFrom(developerWrapper.data);
+            var cacheOptions = new MemoryCacheEntryOptions()
+                .SetAbsoluteExpiration(TimeSpan.FromMinutes(30));
+
+            _memoryCache.Set(developer.Id, developer, cacheOptions);
+
+            return developer;
         }
 
         private RestClient GetSpeedrunDotComClient()
