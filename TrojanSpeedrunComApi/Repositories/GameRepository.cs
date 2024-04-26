@@ -22,14 +22,7 @@ namespace TrojanSpeedrunComApi.Repositories
             var response = await client.ExecuteAsync(request);
             var gameWrapper = response.Content.FromJson<GameWrapper>();
 
-            //return gameWrapper.data;
-            return new Game
-            {
-                Id = gameWrapper.data.id,
-                YearReleased = gameWrapper.data.released,
-                Name = gameWrapper.data.names.international,
-                DeveloperIds = gameWrapper.data.developers.ToList()
-            };
+            return Game.MapFrom(gameWrapper.data);
         }
 
         public async Task<List<Game>> SearchGames(string name, int? releasedYear = null)
@@ -47,13 +40,7 @@ namespace TrojanSpeedrunComApi.Repositories
 
             var gameListWrapper = response.Content.FromJson<GameSearchWrapper>();
 
-            return gameListWrapper.data.Select(x => new Game
-            {
-                Id = x.id,
-                YearReleased = x.released,
-                Name = x.names.international,
-                DeveloperIds = x.developers.ToList()
-            }).ToList();
+            return gameListWrapper.data.Select(Game.MapFrom).ToList();
         }
 
         private RestClient GetSpeedrunDotComClient()

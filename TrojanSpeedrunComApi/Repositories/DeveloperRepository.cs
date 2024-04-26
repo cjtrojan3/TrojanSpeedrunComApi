@@ -22,11 +22,7 @@ namespace TrojanSpeedrunComApi.Repositories
             var response = await client.ExecuteAsync(request);
             var developerWrapper = response.Content.FromJson<DeveloperWrapper>();
 
-            return new Developer
-            {
-                Id = developerWrapper.data.id,
-                Name = developerWrapper.data.name
-            };
+            return Developer.MapFrom(developerWrapper.data);
         }
 
         private RestClient GetSpeedrunDotComClient()
