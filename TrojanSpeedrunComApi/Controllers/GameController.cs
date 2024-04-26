@@ -17,7 +17,7 @@ namespace TrojanSpeedrunComApi.Controllers
 
         [HttpGet]
         [Route(nameof(GetGame))]
-        [ProducesResponseType(200, Type = typeof(Game))]
+        [ProducesResponseType(200, Type = typeof(SpeedrunComGame))]
         public async Task<IActionResult> GetGame(string id)
         {
             return Ok(await _gameService.GetGame(id));
@@ -25,7 +25,7 @@ namespace TrojanSpeedrunComApi.Controllers
 
         [HttpPost]
         [Route(nameof(SearchGames))]
-        [ProducesResponseType(200, Type = typeof(List<Game>))]
+        [ProducesResponseType(200, Type = typeof(List<SpeedrunComGame>))]
         public async Task<IActionResult> SearchGames(SearchGames searchGames)
         {
             return Ok(await _gameService.SearchGames(searchGames.Name, searchGames.ReleasedDate));

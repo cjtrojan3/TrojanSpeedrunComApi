@@ -16,7 +16,7 @@ namespace TrojanSpeedrunComApi.Controllers
 
         [HttpGet]
         [Route(nameof(GetDeveloper))]
-        [ProducesResponseType(200, Type = typeof(Developer))]
+        [ProducesResponseType(200, Type = typeof(SpeedrunComDeveloper))]
         public async Task<IActionResult> GetDeveloper(string developerId)
         {
             return Ok(await _developerService.GetDeveloper(developerId));
