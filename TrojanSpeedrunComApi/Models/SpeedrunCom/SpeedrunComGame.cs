@@ -8,20 +8,14 @@
         public string abbreviation { get; set; }
         public string[] platforms { get; set; }
         public string[] regions { get; set; }
-        //public Assets assets { get; set; }
         public string[] developers { get; set; }
         public DateTimeOffset? created { get; set; }
     }
     public class GameNames
     {
         public string international { get; set; }
-        //public string japanese { get; set; }
-        //public string twitch { get; set; }
     }
-    //public class Assets
-    //{
-    //    public SpeedrunDotComImage logo { get; set; }
-    //}
+
 
     public class SpeedrunDotComImage
     {

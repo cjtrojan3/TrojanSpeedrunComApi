@@ -28,7 +28,7 @@ namespace TrojanSpeedrunComApi.Controllers
         [ProducesResponseType(200, Type = typeof(List<SpeedrunComGame>))]
         public async Task<IActionResult> SearchGames(SearchGames searchGames)
         {
-            return Ok(await _gameService.SearchGames(searchGames.Name, searchGames.ReleasedDate));
+            return Ok(await _gameService.SearchGames(searchGames.Name, searchGames.ReleasedYear));
         }
     }
 }
