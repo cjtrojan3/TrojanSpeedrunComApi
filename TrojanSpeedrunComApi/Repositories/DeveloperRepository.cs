@@ -40,6 +40,17 @@ namespace TrojanSpeedrunComApi.Repositories
             return developer;
         }
 
+        public async Task<List<Developer>> GetDevelopers(List<string> developerIds)
+        {
+            var developers = new List<Developer>();
+            foreach(var developerId in developerIds)
+            {
+                // TODO - make calls asyncronously
+                developers.Add(await GetDeveloper(developerId));
+            }
+            return developers;
+        }
+
         private RestClient GetSpeedrunDotComClient()
         {
             var baseUrl = _configuration.GetSection(AppSettings.SpeedrunComApiBaseUrl.ToString()).Value;

@@ -4,6 +4,7 @@ namespace TrojanSpeedrunComApi.Interfaces
 {
     public interface IDeveloperRepository
     {
-        public Task<Developer> GetDeveloper(string id);
+        Task<Developer> GetDeveloper(string id);
+        Task<List<Developer>> GetDevelopers(List<string> developerIds);
     }
 }
