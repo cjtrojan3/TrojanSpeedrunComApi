@@ -1,4 +1,5 @@
 ﻿using RestSharp;
+using TrojanSpeedrunComApi.Extensions;
 using TrojanSpeedrunComApi.Framework.Extensions;
 using TrojanSpeedrunComApi.Interfaces;
 using TrojanSpeedrunComApi.Models;
@@ -22,7 +23,7 @@ namespace TrojanSpeedrunComApi.Repositories
             var response = await client.ExecuteAsync(request);
             var gameWrapper = response.Content.FromJson<GameWrapper>();
 
-            return Game.MapFrom(gameWrapper.data);
+            return SpeedrunComMapper.MapGame(gameWrapper.data);
         }
 
         public async Task<List<Game>> SearchGames(string name, int? releasedYear = null)
@@ -40,7 +41,7 @@ namespace TrojanSpeedrunComApi.Repositories
 
             var gameListWrapper = response.Content.FromJson<GameSearchWrapper>();
 
-            return gameListWrapper.data.Select(Game.MapFrom).ToList();
+            return gameListWrapper.data.Select(SpeedrunComMapper.MapGame).ToList();
         }
 
         private RestClient GetSpeedrunDotComClient()

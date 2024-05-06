@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 using RestSharp;
+using TrojanSpeedrunComApi.Extensions;
 using TrojanSpeedrunComApi.Framework.Extensions;
 using TrojanSpeedrunComApi.Interfaces;
 using TrojanSpeedrunComApi.Models;
@@ -30,7 +31,7 @@ namespace TrojanSpeedrunComApi.Repositories
             var request = new RestRequest($"developers/{developerId}", Method.Get);
             var response = await client.ExecuteAsync(request);
             var srcDeveloper = response.Content.FromJson<DeveloperWrapper>().data;
-            var developer = Developer.MapFrom(srcDeveloper);
+            var developer = SpeedrunComMapper.MapDeveloper(srcDeveloper);
 
             var cacheOptions = new MemoryCacheEntryOptions()
                 .SetAbsoluteExpiration(TimeSpan.FromMinutes(30));

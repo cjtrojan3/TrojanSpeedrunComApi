@@ -1,5 +1,4 @@
-﻿using TrojanSpeedrunComApi.Framework.Extensions;
-using TrojanSpeedrunComApi.Interfaces;
+﻿using TrojanSpeedrunComApi.Interfaces;
 using TrojanSpeedrunComApi.Models;
 
 namespace TrojanSpeedrunComApi.Services
